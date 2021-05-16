@@ -1,0 +1,21 @@
+.modal-window__submit-button{
+    border: 0;
+    background-color: #000;
+    font-size: 18px;
+    line-height: 22px;
+    color: white;
+    margin-bottom: 36px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.modal-window__submit-button:hover{
+    background-color: rgba(0,0,0,0.8);
+}
+
+@media screen and (max-width: 900px){
+    .modal-window__submit-button{
+        margin-left: 22px;
+        margin-bottom: 25px;
+    }
+}

@@ -1,0 +1,19 @@
+.enter__input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    margin: 0;
+    color: white;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 15px;
+}
+
+.enter__input + .enter__input{
+    margin-top: 30px;
+}

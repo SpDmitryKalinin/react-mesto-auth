@@ -1,0 +1,19 @@
+.modal-window__form{
+    border-radius: 10px;
+    padding-top:34px;
+    width: 430px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    margin: auto;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+@media screen and (max-width: 900px){
+    .modal-window__form{
+        width: 282px;
+        padding-top: 25px;
+    }
+}

@@ -1,0 +1,29 @@
+.modal-window{
+    width: 100%;
+    height: calc(100% + 45px);
+    position: fixed;
+    top: -45px;
+    left: 0;
+    display:flex;
+    background-color: rgba(0,0,0,0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+
+.modal-window input:first-of-type{
+    margin-bottom: 30px;
+}
+
+.modal-window input:last-of-type{
+    margin-bottom: 48px;
+}
+
+.modal-window span:first-of-type{
+    top: -26px;
+}
+
+.modal-window span:last-of-type{
+    top: -44px;
+}

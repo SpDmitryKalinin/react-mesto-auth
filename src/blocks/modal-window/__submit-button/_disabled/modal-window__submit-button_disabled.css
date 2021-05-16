@@ -1,0 +1,6 @@
+.modal-window__submit-button_disabled{
+    background-color: transparent;
+    color: #C4C4C4;
+    border: 2px solid #C4C4C4;
+    border-radius: 2px;
+}

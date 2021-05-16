@@ -1,0 +1,13 @@
+.page{
+    max-width: 1280px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Inter", "Arial", sans-serif;
+}
+
+@media screen and (max-width: 900px){
+    .page{
+        max-width: 900px;
+    }
+}

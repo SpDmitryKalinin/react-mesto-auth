@@ -1,0 +1,13 @@
+.header__button{
+    background-color: transparent;
+    
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #A9A9A9;
+    border: none;
+
+/* identical to box height, or 122% */
+text-align: right;
+}

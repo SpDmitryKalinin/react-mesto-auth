@@ -1,0 +1,14 @@
+.modal-window__type-error{
+    margin-left: 36px;
+    position: relative;
+    font-size: 12px;
+    line-height: 15px;
+    color:#FF0000;
+    display: none;
+}
+
+@media screen and (max-width: 900px){
+    .modal-window__type-error{
+        margin-left: 22px;
+    }
+}

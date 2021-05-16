@@ -1,0 +1,78 @@
+/*Normilize*/
+@import url(vendor/normalize.css);
+
+/*Fonts*/
+@import url(fonts/InterWeb/inter.css);
+@import url(blocks/body/body.css);
+@import url(blocks/page/page.css);
+
+/*Header*/
+@import url(blocks/header/header.css);
+@import url(blocks/header/__logo/header__logo.css);
+@import url(blocks/header/__button/header__button.css);
+@import url(blocks/header/__email/header__email.css);
+@import url(blocks/header/__complete/header__complete.css);
+
+/*Profile*/
+@import url(blocks/profile/profile.css);
+@import url(blocks/profile/__info/profile__info.css);
+@import url(blocks/profile/__avatar/profile__avatar.css);
+@import url(blocks/profile/__title/profile__title.css);
+@import url(blocks/profile/__subtitle/profile__subtitle.css);
+@import url(blocks/profile/__item/profile__item.css);
+@import url(blocks/profile/__edit-button/profile__edit-button.css);
+@import url(blocks/profile/__add-button/profile__add-button.css);
+
+/*Main*/
+@import url(blocks/main/main.css);
+
+/*Elements*/
+@import url(blocks/elements/elements.css);
+@import url(blocks/element/element.css);
+@import url(blocks/element/__title/element__title.css);
+@import url(blocks/element/__caption/element__caption.css);
+@import url(blocks/element/__image/element__image.css);
+@import url(blocks/element/__button-like/element__button-like.css);
+@import url(blocks/element/__button-like/_active/element__button-like_active.css);
+@import url(blocks/element/__button-delete/element__button-delete.css);
+
+/*Footer*/
+@import url(blocks/footer/footer.css);
+@import url(blocks/footer/__copyright/footer__copyright.css);
+
+/*Modal window*/
+@import url(blocks/modal-window/modal-window.css);
+@import url(blocks/modal-window/__title/modal-window__title.css);
+@import url(blocks/modal-window/__form/modal-window__form.css);
+@import url(blocks/modal-window/__item/modal-window__item.css);
+@import url(blocks/modal-window/__submit-button/modal-window__submit-button.css);
+@import url(blocks/modal-window/__close-button/modal-window__close-button.css);
+@import url(blocks/modal-window/_is-open/modal-window_is-open.css);
+@import url(blocks/modal-window/__container-full-image/modal-window__container-full-image.css);
+@import url(blocks/modal-window/__full-image/modal-window__full-image.css);
+@import url(blocks/modal-window/__image-caption/modal-window__image-caption.css);
+@import url(blocks/modal-window/_image/modal-window_image.css);
+@import url(blocks/modal-window/__type-error/modal-window__type-error.css);
+@import url(blocks/modal-window/__item/_error/modal-window__item_error.css);
+@import url(blocks/modal-window/__type-error/_active/modal-window__type-error_active.css);
+@import url(blocks/modal-window/__submit-button/_disabled/modal-window__submit-button_disabled.css);
+@import url(blocks/modal-window/__image/modal-window__image.css);
+@import url(blocks/modal-window/__title/_tooltip/modal-window__title_tooltip.css);
+
+@import url(blocks/element/__like/element__like.css);
+@import url(blocks/element/__counter-like/element__counter-like.css);
+@import url(blocks/modal-window/__confirm-container/modal-window__confirm-container.css);
+@import url(blocks/profile/__avatar-container/profile__avatar-container.css);
+@import url(blocks/profile/__avatar-edit-button/profile__avatar-edit-button.css);
+
+@import url(blocks/enter/enter.css);
+@import url(blocks/enter/__title/enter__title.css);
+@import url(blocks/enter/__input/enter__input.css);
+@import url(blocks/enter/__submit/enter__submit.css);
+@import url(blocks/enter/__caption/enter__caption.css);
+html{
+    background-color: black;
+    margin: 0;
+}
+
+

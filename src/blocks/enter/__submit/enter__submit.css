@@ -1,0 +1,11 @@
+.enter__submit{
+    width: 100%;
+    padding: 14px 0;
+    background-color: white;
+    margin-top: 215px;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+}

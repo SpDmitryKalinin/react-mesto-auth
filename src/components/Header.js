@@ -1,6 +1,14 @@
 import logo from '../images/logo.svg';
+import {Link, useHistory} from 'react-router-dom'; 
 
 function Header(props){
+
+    const history = useHistory();
+
+    function signOut(){
+        localStorage.removeItem('jwt');
+        history.push('/sign-in');
+    }
     
     return (
         <header className="header">
@@ -8,9 +16,9 @@ function Header(props){
             {props.status ? 
             <div className={"header__complete"}>
                 <p className="header__email">email@mail.com</p>
-                <button className="header__button">Выйти</button>
+                <button onClick={signOut} className="header__button">Выйти</button>
             </div> :
-            window.location.href.indexOf('sign-up') != -1 ? <button className="header__button">Войти</button> : <button className="header__button">Регистрация</button>}     
+            window.location.href.indexOf('sign-up') != -1 ? <Link to={`/sign-in`} className="header__button">Войти</Link> : <Link to={`/sign-up`} className="header__button">Регистрация</Link>}     
         </header>
     );
 }

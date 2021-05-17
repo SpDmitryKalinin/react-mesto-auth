@@ -58,10 +58,8 @@ class App extends React.Component{
 
     tokenCheck () {
         const jwt = localStorage.getItem('jwt');
-        console.log(jwt)
         if(jwt){
             getContent(jwt).then((res) =>{
-                console.log(res);
                 if(res){
                     this.handleLogin();
                     this.props.history.push('/');
@@ -175,7 +173,7 @@ class App extends React.Component{
                 <Route path="/sign-in">
                     <Login status ={this.handleLogin}/>
                 </Route>
-                <Route path="/sign-up" render={(this.props)}>
+                <Route path="/sign-up">
                     <Registration 
                         showMessage = {() => this.setState({isTooltipPopupOpen: true})}
                         confirm = {() => this.setState({windowType:true})}
@@ -225,8 +223,7 @@ class App extends React.Component{
                     isOpen ={this.state.isTooltipPopupOpen}
                     name={'tooltip'}
                     type={this.state.windowType}
-                    onClose={()=> this.closePopup('isTooltipPopupOpen')}
-                    title={"Вы успешно зарегистрировались!"}/>
+                    onClose={()=> this.closePopup('isTooltipPopupOpen')}/>
             </div>
         </currentUserContext.Provider>
         );

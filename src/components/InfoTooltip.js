@@ -2,11 +2,11 @@
 import confirmImage from './../images/yes.svg';
 import crossImage from './../images/no.svg';
 
-export default function InfoToolTip({isOpen, name, title, type, onClose}){
+export default function InfoToolTip({isOpen, name, type, onClose}){
 
     return(
         <section 
-            className={`modal-window modal-window_${name} ${isOpen ? 'modal-window_is-open' : ''}`} 
+            className={`modal-window modal-window${name} ${isOpen ? 'modal-window_is-open' : ''}`} 
             onClick={onClose}>
             <form  
                 name={name} 

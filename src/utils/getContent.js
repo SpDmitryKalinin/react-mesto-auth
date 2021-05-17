@@ -9,7 +9,6 @@ export default function getContent(token){
       }
     })
     .then(res => {
-        console.log(res);
         return getResponseData(res);
     })
 } 

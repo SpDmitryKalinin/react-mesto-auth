@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { currentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from './PopupWithForm';
 
 export default function EditProfilePopup(props){
-    const currentUser = React.useContext(currentUserContext);
+    const currentUser = React.useContext(CurrentUserContext);
     const [name, setName] = useState(currentUser.name)
     const [description, setDescription] = useState(currentUser.about);
     React.useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-      }, [currentUser]); 
+      }, [currentUser], props.isOpen); 
+
     function onChangeName(e){
         setName(e.target.value);
     }
@@ -27,7 +28,8 @@ export default function EditProfilePopup(props){
             isOpen = {props.isOpen} 
             name="edit-avatar" 
             title="Редактировать профиль"
-            onSubmit={onSubmit}>
+            onSubmit={onSubmit}
+            buttonText ='Редактировать'>
                 <label>
                     <input 
                         onChange={onChangeName} 

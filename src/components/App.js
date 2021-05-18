@@ -11,14 +11,15 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Registration from './Registration';
 import InfoToolTip from './InfoTooltip';
-import {currentUserContext} from './../contexts/CurrentUserContext.js';
+import {CurrentUserContext} from './../contexts/CurrentUserContext.js';
 import { Route, Switch, withRouter } from "react-router-dom";
 import ProtectedRoute from './ProtectedRoute';
-import getContent from './../utils/getContent';
+import {getContent} from '../utils/auth';
+import auth from '../utils/auth';
 
 
 class App extends React.Component{
-    static contextType = currentUserContext;
+    static contextType = CurrentUserContext;
     constructor(props){
         super(props);
         this.state = {
@@ -28,18 +29,31 @@ class App extends React.Component{
             isTooltipPopupOpen: false,
             windowType: false,
             selectedCard: {},
-            currentUser: '',
+            currentUser: {},
             cards: [],
             loggedIn: false,
-            mail: ''
+            mail: '',
+            history: ''
         }
+        this.handleSetMail = this.setMail.bind(this);
         this.tokenCheck = this.tokenCheck.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
     
-    closePopup(stateValue){
-        this.setState({[stateValue]: false});
+    closeAllPopups(){
+        this.setState({ 
+            isEditProfilePopupOpen:false, 
+            isAddPlacePopupOpen: false, 
+            isEditAvatarPopupOpen: false, 
+            selectedCard: {}, 
+            isTooltipPopupOpen: false, 
+        });
     }
+
+    setMail(email){
+        this.setState({mail: email});
+    }
+
     setCardInfo(card){
         this.setState({selectedCard: card});
     }
@@ -56,11 +70,49 @@ class App extends React.Component{
         })
     }
 
+    handlerLoginOut(){
+        this.setState({
+            loggedIn: false
+        })
+    }
+
+    handleSignIn(e){
+        e.preventDefault();
+        auth(this.state.login, this.state.password, '/signin')
+        .then(res =>{
+            if(res.token){
+                this.props.setMailHeader(this.state.login);
+                this.props.status();
+                const jwt = res.token;
+                localStorage.setItem('jwt', jwt);
+                this.props.history.push('/');
+            } 
+        })
+        .catch(res =>{
+            console.log(res);
+        })
+    }
+
+    handleRegistration(e){
+        e.preventDefault();
+        auth(this.state.login, this.state.password, '/signup').then(res =>{
+            this.props.confirm();
+            this.props.showMessage();
+            this.props.history.push('/sign-in');
+        })
+        .catch(res =>{
+            console.log(res);
+            this.props.error();
+            this.props.showMessage();
+        })
+    }
+
     tokenCheck () {
         const jwt = localStorage.getItem('jwt');
         if(jwt){
             getContent(jwt).then((res) =>{
                 if(res){
+                    this.setState({mail: res.data.email});
                     this.handleLogin();
                     this.props.history.push('/');
                 }
@@ -74,7 +126,7 @@ class App extends React.Component{
     handleUpdateUser(name, about){
         api.patchProfileInfo(name, about).then(res => {
             this.setState({currentUser: res});
-            this.closePopup('isEditProfilePopupOpen')
+            this.closeAllPopups()
         })
         .catch(res =>{
             console.log(res);
@@ -84,7 +136,7 @@ class App extends React.Component{
     handleUpdateAvatar(inputValue){
         api.patchProfileAvatar(inputValue).then(res =>{
             this.setState({currentUser: res});
-            this.closePopup('isEditAvatarPopupOpen');
+            this.closeAllPopups();
         })
         .catch(res =>{
             console.log(res);
@@ -100,15 +152,14 @@ class App extends React.Component{
         });
     }
 
-    handleInitProfile(){
-        if(this.state.currentUser === ''){
-            api.getProfileInfo().then(res =>{
-                this.setState({currentUser: res});
-            })
-            .catch(res =>{
-                console.log(res);
-            })
-        };
+    handleInitProfile()
+    {
+        api.getProfileInfo().then(res =>{
+            this.setState({currentUser: res});
+        })
+        .catch(res =>{
+            console.log(res);
+        })
     }
 
     handleCardLike(card){
@@ -121,6 +172,9 @@ class App extends React.Component{
                     }
                 })
             })
+            .catch(res =>{
+                console.log(res);
+            })
         }
         else{
             api.putLike(card._id).then(res=>{
@@ -129,6 +183,9 @@ class App extends React.Component{
                         cards: state.cards.map((item)=> item._id === card._id ? res : item)
                     }
                 })
+            })
+            .catch(res =>{
+                console.log(res);
             })
         }
     }
@@ -150,14 +207,16 @@ class App extends React.Component{
         }) 
     }
 
-    handleAddCard(name, link){
+    handleAddCard(name, link, handleSetName, handleSetLink){
         api.postCards(name,link).then(res =>{
             this.setState(state =>{
                 return{
                     cards: [res, ...state.cards]
                 }
             })
-            this.closePopup('isAddPlacePopupOpen');
+            handleSetName('');
+            handleSetLink('');
+            this.closeAllPopups();
         })
         .catch(res =>{
             console.log(res);
@@ -166,21 +225,22 @@ class App extends React.Component{
     
     render(){
         return(
-        <currentUserContext.Provider value={this.state.currentUser}>
+        <CurrentUserContext.Provider value={this.state.currentUser}>
             <div className="page">
-                <Header status = {this.state.loggedIn}/>
+                <Header status = {this.state.loggedIn} mail = {this.state.mail} logout ={this.handlerLoginOut.bind(this)}/>
                 <Switch>
                 <Route path="/sign-in">
-                    <Login status ={this.handleLogin}/>
+                    <Login status ={this.handleLogin} onSubmit = {this.handleSignIn} setMailHeader = {this.handleSetMail}/>
                 </Route>
                 <Route path="/sign-up">
                     <Registration 
                         showMessage = {() => this.setState({isTooltipPopupOpen: true})}
                         confirm = {() => this.setState({windowType:true})}
-                        error = {() => this.setState({windowType:false})}/>
+                        error = {() => this.setState({windowType:false})}
+                        onSubmit={this.handleRegistration}/>
                 </Route>
 
-                <ProtectedRoute path="/" 
+                <ProtectedRoute exact path="/" 
                     component = {Main} 
                     loggedIn = {this.state.loggedIn}
                     onCardClick = {this.setCardInfo.bind(this)} 
@@ -197,17 +257,17 @@ class App extends React.Component{
                 
                 <AddPlacePopup 
                     onAddPlace ={this.handleAddCard.bind(this)} 
-                    onClose = {() => this.closePopup('isAddPlacePopupOpen')} 
+                    onClose = {() => this.closeAllPopups()} 
                     isOpen = {this.state.isAddPlacePopupOpen}/>
 
                 <EditProfilePopup 
-                    onClose = {() => this.closePopup('isEditProfilePopupOpen')} 
+                    onClose = {() => this.closeAllPopups()} 
                     isOpen = {this.state.isEditProfilePopupOpen} 
                     onUpdateUser ={this.handleUpdateUser.bind(this)}/>
 
                 <EditAvatarPopup 
                     onUpdateAvatar = {this.handleUpdateAvatar.bind(this)} 
-                    onClose = {() => this.closePopup('isEditAvatarPopupOpen')} 
+                    onClose = {() => this.closeAllPopups()} 
                     isOpen = {this.state.isEditAvatarPopupOpen}/> 
 
                 <PopupWithForm 
@@ -217,15 +277,15 @@ class App extends React.Component{
 
                 <ImagePopup 
                     card = {this.state.selectedCard} 
-                    onClose = {() => this.closePopup('selectedCard')}/> 
+                    onClose = {() => this.closeAllPopups()}/> 
                 
                 <InfoToolTip
                     isOpen ={this.state.isTooltipPopupOpen}
                     name={'tooltip'}
                     type={this.state.windowType}
-                    onClose={()=> this.closePopup('isTooltipPopupOpen')}/>
+                    onClose={()=> this.closeAllPopups()}/>
             </div>
-        </currentUserContext.Provider>
+        </CurrentUserContext.Provider>
         );
     }
 }

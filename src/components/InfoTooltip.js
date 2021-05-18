@@ -13,7 +13,7 @@ export default function InfoToolTip({isOpen, name, type, onClose}){
                 className={`modal-window__form`} 
                 onClick={(evt) => evt.stopPropagation()} 
                 noValidate>
-                <img className={"modal-window__image"} src={type ? confirmImage : crossImage}/>
+                <img className={"modal-window__image"} alt = "Индикатор успешной или неудачной регистрации" src={type ? confirmImage : crossImage}/>
                 <h2 className="modal-window__title modal-window__title_tooltip">
                     {type ? 'Вы успешно зарегистрировались!' : "Что-то пошло не так! Попробуйте ещё раз."}</h2>
                 <button type="button" className={`modal-window__close-button`} onClick={onClose}></button>

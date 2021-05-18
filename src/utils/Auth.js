@@ -14,7 +14,7 @@ export default function auth(email, password, endpoint){
 }
 
 export function getContent(token){
-    return fetch(`${BASE_URL}/me`, {
+    return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export function getContent(token){
     .then(res => {
         return getResponseData(res);
     })
-} 
+}
 
 function getResponseData(res) {
     if (!res.ok) {

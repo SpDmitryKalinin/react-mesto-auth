@@ -1,9 +1,9 @@
 import React from 'react';
 import Card from './Card.js';
-import {currentUserContext} from './../contexts/CurrentUserContext.js'
+import {CurrentUserContext} from './../contexts/CurrentUserContext.js'
 
 export default class Main extends React.Component{
-    static contextType = currentUserContext;
+    static contextType = CurrentUserContext;
     constructor(props){
         super(props);
     }
@@ -28,7 +28,11 @@ export default class Main extends React.Component{
             <section className="elements">
                 {
                     this.props.cards.map((item => {
-                        return <Card onCardDelete = {this.props.onCardDelete} onCardLike = {this.props.onCardLike} onCardClick ={this.props.onCardClick} card={item} key={item._id}/>
+                        return (<Card 
+                            onCardDelete = {this.props.onCardDelete} 
+                            onCardLike = {this.props.onCardLike} 
+                            onCardClick ={this.props.onCardClick} 
+                            card={item} key={item._id}/>)
                     }))
                 }
                 

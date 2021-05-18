@@ -13,7 +13,8 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}){
             isOpen = {isOpen} 
             name="edit-avatar" 
             title="Редактировать аватар"
-            onSubmit={onSubmit}>
+            onSubmit={onSubmit}
+            buttonText ='Обновить'>
             <label>
                 <input 
                     ref={inputRef} 

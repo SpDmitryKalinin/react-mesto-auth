@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { currentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Card({card, onCardClick, onCardLike, onCardDelete}){
-    const info = useContext(currentUserContext);
+    const info = useContext(CurrentUserContext);
     if(!card){
         return null
     }   
     else{
         return(
-            <section className="element" key = {card._id}>
+            <section className="element">
                 <img className="element__image" src={card.link} alt={card.name} onClick ={() => onCardClick(card)}/>
                 <div className="element__caption">
                     <h2 className="element__title">{card.name}</h2>

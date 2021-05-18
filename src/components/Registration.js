@@ -12,7 +12,6 @@ class Registration extends React.Component{
             <AuthForm
                 title="Регистрация"
                 textButton="Зарегистрироваться"
-                onSubmit = {this.onSubmit}
                 showMessage = {this.props.showMessage}
                 confirm = {this.props.confirm}
                 error = {this.props.error}
